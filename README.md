@@ -1,7 +1,9 @@
 Naïf
 ====
 
-Naïf is a python library and server for text classification. It currently implements a Naïve Bayes classifier, and operates through a simple REST-based interface. 
+Naïf is a python library and server for text classification. It currently implements a Naïve Bayes classifier, 
+which is accessed through a simple REST-based interface handling JSON-formatted data. 
+
 In time, Naif will be offered as a service, providing access to simple, scalable text classification in the cloud.
 
 Installation
