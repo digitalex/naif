@@ -36,6 +36,17 @@ class TrainHandler(tornado.web.RequestHandler):
         self.classifier.train(document, category)
         self.write("{'status':'success'}")
 
+class ClassifyHandler(tornado.web.RequestHandler):
+    def initialize(self, classifier):
+        self.classifier = classifier
+
+    def post(self):
+        self.set_header("Content-Type", "application/json")
+        data = json.loads(self.request.body)
+        document = tokenize(data['text'])
+        category = self.classifier.classify(document)
+        self.write("{'cat':'%s'}" % category)
+
 def main():
     tornado.options.parse_command_line()
     classifier = Classifier()
@@ -43,7 +54,7 @@ def main():
     app = tornado.web.Application([
         (r"/", MainHandler, properties),
         (r"/train", TrainHandler, properties),
-        #(r"/classify", ClassifyHandler, properties),
+        (r"/classify", ClassifyHandler, properties),
     ])
     app.listen(options.port)
 
